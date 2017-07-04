@@ -17,6 +17,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-coffeelint');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-ng-constant');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-html2js');
 
@@ -417,6 +418,20 @@ module.exports = function ( grunt ) {
         ]
       }
     },
+    
+    ngconstant: {
+      options: {
+        dest: 'build/src/app/environment.js',
+        name: 'ngBoilerplate.constants',
+        wrap: '<%= __ngModule %>'
+      },
+      dev: {
+        constants: 'src/app/config/env.dev.json'
+      },
+      production: {
+        constants: 'src/app/config/env.prod.json'
+      }
+    },
 
     /**
      * This task compiles the karma template so that changes to its file array
@@ -429,7 +444,8 @@ module.exports = function ( grunt ) {
           '<%= vendor_files.js %>',
           '<%= html2js.app.dest %>',
           '<%= html2js.common.dest %>',
-          '<%= test_files.js %>'
+          '<%= test_files.js %>',
+          '<%= ngconstant.options.dest %>'
         ]
       }
     },
@@ -578,7 +594,7 @@ module.exports = function ( grunt ) {
    * The `build` task gets your app ready to run for development and testing.
    */
   grunt.registerTask( 'build', [
-    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
+    'clean', 'ngconstant:dev', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
     'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'index:build', 'karmaconfig',
     'karma:continuous' 
@@ -589,7 +605,7 @@ module.exports = function ( grunt ) {
    * minifying your code.
    */
   grunt.registerTask( 'compile', [
-    'less:compile', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile'
+    'ngconstant:production', 'less:compile', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile'
   ]);
 
   /**
