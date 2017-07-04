@@ -20,6 +20,8 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-ng-constant');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-html2js');
+  
+  require('time-grunt')(grunt);
 
   /**
    * Load in our build configuration file.

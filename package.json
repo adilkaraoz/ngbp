@@ -36,6 +36,7 @@
     "karma-coverage": "^0.2.7",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-firefox-launcher": "^1.0.1",
-    "karma-jasmine": "^0.1.5"
+    "karma-jasmine": "^0.1.5",
+    "time-grunt": "^1.0.0"
   }
 }
