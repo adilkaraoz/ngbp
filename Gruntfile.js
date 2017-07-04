@@ -11,6 +11,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-conventional-changelog');
   grunt.loadNpmTasks('grunt-bump');
@@ -352,6 +353,15 @@ module.exports = function ( grunt ) {
         dest: '<%= build_dir %>/templates-common.js'
       }
     },
+    connect: {
+      server: {
+        options: {
+          port: 5050,
+          base: 'build',
+          livereload: true
+        }
+      }
+    },
 
     /**
      * The Karma configurations.
@@ -557,7 +567,7 @@ module.exports = function ( grunt ) {
    * before watching for changes.
    */
   grunt.renameTask( 'watch', 'delta' );
-  grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
+  grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'connect:server', 'delta' ] );
 
   /**
    * The default task is to build and compile.
