@@ -4,7 +4,9 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.constants',
   'ngBoilerplate.home',
   'ngBoilerplate.about',
-  'ui.router'
+  'ui.router',
+  'ngBoilerplate.header',
+  'ngBoilerplate.footer'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
@@ -23,4 +25,3 @@ angular.module( 'ngBoilerplate', [
 })
 
 ;
-
